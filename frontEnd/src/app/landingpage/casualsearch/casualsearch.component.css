@@ -1,0 +1,29 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+.search-section {
+  background-color: #e7f3ff; /* light blue */
+  height: 60vh;
+  border-radius: 10px;
+}
+
+.content-wrapper {
+  max-width: 700px;
+}
+
+.search-input {
+  width: 70%;
+  max-width: 400px;
+  border-radius: 8px;
+  background-color: #ffffff !important;
+  color: #000; /* text color */
+}
+
+/* Placeholder color */
+.search-input::placeholder {
+  color: #a0a0a0; /* light grey */
+  opacity: 1; /* ensures consistent color in all browsers */
+}
+
+.search-btn {
+  border-radius: 8px;
+}

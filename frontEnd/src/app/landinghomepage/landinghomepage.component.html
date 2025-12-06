@@ -1,0 +1,9 @@
+ <app-navbar (openLoginEvent)="showLogin = true"></app-navbar>
+<br> <br>
+<app-casualsearch></app-casualsearch>
+<app-trustedby></app-trustedby>
+<app-betterexperience></app-betterexperience>
+<app-footer></app-footer>
+<app-enterlogincred *ngIf="showLogin" (closeLogin)="showLogin = false"></app-enterlogincred>
+
+
