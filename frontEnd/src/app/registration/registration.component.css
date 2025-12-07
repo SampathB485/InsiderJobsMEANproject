@@ -1,0 +1,21 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+/* Change placeholder color */
+/* Global placeholder color override */
+.form-control::placeholder {
+  color: #9e9e9e !important;
+  opacity: 1;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: #9e9e9e !important;
+}
+
+.form-control::-moz-placeholder {
+  color: #9e9e9e !important;
+}
+
+.form-control:-ms-input-placeholder {
+  color: #9e9e9e !important;
+}

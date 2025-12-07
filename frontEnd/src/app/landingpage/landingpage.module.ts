@@ -6,6 +6,7 @@ import { TrustedbyComponent } from './trustedby/trustedby.component';
 import { BetterexperienceComponent } from './betterexperience/betterexperience.component';
 import { FooterComponent } from './footer/footer.component';
 import { EnterlogincredComponent } from './enterlogincred/enterlogincred.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -20,7 +21,8 @@ import { EnterlogincredComponent } from './enterlogincred/enterlogincred.compone
     EnterlogincredComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [NavbarComponent, CasualsearchComponent, TrustedbyComponent, FooterComponent, BetterexperienceComponent, EnterlogincredComponent]
 })

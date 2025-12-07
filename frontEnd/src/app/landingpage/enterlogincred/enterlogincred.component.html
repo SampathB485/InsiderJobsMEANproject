@@ -1,5 +1,8 @@
 <div class="modal-backdrop">
-  <div class="login-modal">
+  <div class="login-modal position-relative">
+
+    <!-- Close (X) button -->
+    <button class="close-btn" (click)="close()">&#10005;</button>
 
     <h4 class="text-center mb-4">Login</h4>
 
@@ -13,9 +16,7 @@
       <input type="password" class="form-control" placeholder="Enter your password">
     </div>
 
-    <button class="btn btn-primary w-100 mb-3">Login</button>
-
-    <button class="btn btn-secondary w-100" (click)="close()">Close</button>
+    <button class="btn btn-primary w-100">Login</button>
 
   </div>
 </div>

@@ -1,20 +1,18 @@
 <nav class="navbar navbar-expand-lg shadow-sm sticky-top">
+  <a class="navbar-brand d-flex align-items-center" href="#">
+    <img
+      src="../../../assets/images/job-logo4.jpg"
+      alt="Logo"
+      class="me-2"
+      style="height: 40px"
+    />
+    <span class="fw-bold text-primary">InsiderJobs</span>
+  </a>
 
-
- 
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <img src="../../../assets/images/job-logo4.jpg" alt="Logo" class="me-2" style="height:40px;">
-      <span class="fw-bold text-primary">InsiderJobs</span>
-    </a>
-
-      
-
-
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <div class="navbar-nav">
-        <a class="btn register-btn me-2" routerLink="/register">Register</a>
-        <a class="btn btn-primary login-btn" (click)="openLogin()">Login</a>
-      </div>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <div class="navbar-nav">
+      <button  class="btn register-btn me-2" routerLink="/register"> Register </button>
+      <a class="btn btn-primary login-btn" (click)="openLogin()">Login</a>
     </div>
-
+  </div>
 </nav>

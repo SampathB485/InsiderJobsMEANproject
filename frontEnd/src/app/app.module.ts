@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingpageModule } from './landingpage/landingpage.module';
 import { LandinghomepageComponent } from './landinghomepage/landinghomepage.component';
+import { RegistrationComponent } from './registration/registration.component';
+
 
 
 
@@ -13,6 +15,7 @@ import { LandinghomepageComponent } from './landinghomepage/landinghomepage.comp
   declarations: [
     AppComponent,
     LandinghomepageComponent,
+    RegistrationComponent,
 
   ],
   imports: [
