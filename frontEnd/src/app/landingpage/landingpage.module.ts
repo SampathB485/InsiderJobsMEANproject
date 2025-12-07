@@ -7,6 +7,7 @@ import { BetterexperienceComponent } from './betterexperience/betterexperience.c
 import { FooterComponent } from './footer/footer.component';
 import { EnterlogincredComponent } from './enterlogincred/enterlogincred.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -22,7 +23,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports: [NavbarComponent, CasualsearchComponent, TrustedbyComponent, FooterComponent, BetterexperienceComponent, EnterlogincredComponent]
 })

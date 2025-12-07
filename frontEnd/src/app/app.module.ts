@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LandingpageModule } from './landingpage/landingpage.module';
 import { LandinghomepageComponent } from './landinghomepage/landinghomepage.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -21,7 +22,8 @@ import { RegistrationComponent } from './registration/registration.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    LandingpageModule
+    LandingpageModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
