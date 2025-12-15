@@ -109,6 +109,11 @@ const projectSchema = new mongoose.Schema({
 
 const JobSeekerSchema = new mongoose.Schema(
   {
+    userType:{
+      type:String,
+      required:true
+    },
+    
     firstName: {
       type: String,
       required: true,

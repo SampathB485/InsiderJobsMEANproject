@@ -1,21 +1,27 @@
-const jobSeekerModel = require('../models/jobSeekerModel');
-const express = require('express');
-const router = express.Router();
+const JobSeekerModel = require("../models/jobSeekerModel");
+const bcrypt = require("bcryptjs");
 
-const createJobSeeker = async (data)=>{
+const createJobSeeker = async (data) => {
+  const hashedPassword = await bcrypt.hash(data.profilePassword, 10);
 
-}
+  const jobSeeker = new JobSeekerModel({
+    ...data,
+    profilePassword: hashedPassword,
+  });
 
-const retrieveJobSeeker = async()=>{
+  const savedJobSeeker = await jobSeeker.save();
+  return savedJobSeeker;
+};
 
-}
+const retrieveJobSeeker = async () => {};
 
-const updateJobSeeker = async ()=>{
+const updateJobSeeker = async () => {};
 
-}
+const deleteJobSeeker = async () => {};
 
-const deleteJobSeeker = async ()=>{
-
-}
-
-module.exports = {createJobSeeker, retrieveJobSeeker, updateJobSeeker, deleteJobSeeker}
+module.exports = {
+  createJobSeeker,
+  retrieveJobSeeker,
+  updateJobSeeker,
+  deleteJobSeeker,
+};

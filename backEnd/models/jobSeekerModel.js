@@ -1,18 +1,15 @@
 const mongoose = require('mongoose');
 const JobSeekerSchema = require('../schema/jobSeeker');
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect('mongodb://localhost:27017/InsiderJobs');
-    console.log('✅ MongoDB Connected');
+mongoose.connect('mongodb://localhost:27017/InsiderJobs', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('MongoDB connected successfully without any hassle');
+}).catch((err) => {
+    console.error('MongoDB connection error:', err);
+});
 
-    // Register models AFTER connection
-    mongoose.model('jobseekers', JobSeekerSchema);
-    
+const JobSeekerModel = mongoose.model('jobseekers', JobSeekerSchema);
 
-  } catch (error) {
-    console.error('❌ MongoDB connection failed', error);
-    process.exit(1);
-  }
-};
-module.exports = connectDB;
+module.exports = JobSeekerModel;
