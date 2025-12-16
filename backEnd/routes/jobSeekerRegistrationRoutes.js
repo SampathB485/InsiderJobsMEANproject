@@ -3,6 +3,7 @@ const router = express.Router();
 const jobSeekerRegFunctions = require("../CRUDoperations/jobSeekerActualOperations");
 const JobSeekerModel = require("../models/jobSeekerModel");
 
+
 // const dummyJobSeeker = {
 //   firstName: "Sampathboss",
 //   lastName: "Bf",

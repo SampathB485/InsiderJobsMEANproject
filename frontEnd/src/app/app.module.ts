@@ -8,6 +8,8 @@ import { LandinghomepageComponent } from './landinghomepage/landinghomepage.comp
 import { RegistrationComponent } from './registration/registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { JobseekerhomeComponent } from './jobseekerhome/jobseekerhome.component';
+import { RecruiterhomeComponent } from './recruiterhome/recruiterhome.component';
 
 
 
@@ -18,6 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     LandinghomepageComponent,
     RegistrationComponent,
+    JobseekerhomeComponent,
+    RecruiterhomeComponent,
 
   ],
   imports: [

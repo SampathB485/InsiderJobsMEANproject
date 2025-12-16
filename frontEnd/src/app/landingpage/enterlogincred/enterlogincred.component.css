@@ -12,7 +12,17 @@
   align-items: center;
   z-index: 9999;
 }
-
+.error {
+  color: red;
+  font-size: 12px;
+}
+.error {
+  color: red;
+  font-size: 12px;
+}
+.required {
+  color: red;
+}
 .login-modal {
   background: #fff;
   width: 500px;

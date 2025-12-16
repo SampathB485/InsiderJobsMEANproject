@@ -111,7 +111,8 @@ const JobSeekerSchema = new mongoose.Schema(
   {
     userType:{
       type:String,
-      required:true
+      required:true,
+      enum: ['jobseeker', 'recruiter']
     },
     
     firstName: {

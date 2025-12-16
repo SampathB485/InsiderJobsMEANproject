@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -5,9 +6,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var jobSeekerRouter = require('./routes/jobSeekerRegistrationRoutes')
+var login = require('./routes/login')
 
 var app = express();
 app.use(cors({
@@ -27,10 +27,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-// app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/register', jobSeekerRouter) //control will go to jobSeekerRegistrationRoutes.
+app.use('/login', login) //
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

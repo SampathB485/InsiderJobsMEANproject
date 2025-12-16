@@ -6,17 +6,46 @@
 
     <h4 class="text-center mb-4">Login</h4>
 
-    <div class="mb-3">
-      <label>Email ID</label>
-      <input type="email" class="form-control" placeholder="Enter your email">
-    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
 
-    <div class="mb-3">
-      <label>Password</label>
-      <input type="password" class="form-control" placeholder="Enter your password">
-    </div>
+      <!-- Email -->
+      <div class="mb-3">
+        <label>Email ID <span class="required">*</span></label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          placeholder="Enter your email"
+        />
+        <small class="error"
+               *ngIf="f['email'].touched && f['email'].invalid">
+          Enter a valid email
+        </small>
+      </div>
 
-    <button class="btn btn-primary w-100">Login</button>
+      <!-- Password -->
+      <div class="mb-3">
+        <label>Password <span class="required">*</span></label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+        <small class="error"
+               *ngIf="f['password'].touched && f['password'].invalid">
+          Password is required
+        </small>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit"
+              class="btn btn-primary w-100"
+              [disabled]="loginForm.invalid">
+        Login
+      </button>
+
+    </form>
 
   </div>
 </div>
