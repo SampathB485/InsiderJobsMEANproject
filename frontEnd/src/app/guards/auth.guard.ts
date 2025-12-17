@@ -1,27 +1,20 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { AuthService } from '../Services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard {
-  constructor(private router: Router) {}
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
-
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      // 🚫 Not logged in
-      this.router.navigate(['/']);
-      return false;
+  constructor(private authService: AuthService,private router: Router) {}
+  canActivate(): boolean {
+    if (this.authService.isLoggedIn()) {
+      return true;
     }
 
-    // ✅ Logged in
-    return true;
+    this.router.navigate(['/']);
+    return false;
+
   }
   
 }
