@@ -8,8 +8,8 @@ import { LandinghomepageComponent } from './landinghomepage/landinghomepage.comp
 import { RegistrationComponent } from './registration/registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { JobseekerhomeComponent } from './jobseekerhome/jobseekerhome.component';
-import { RecruiterhomeComponent } from './recruiterhome/recruiterhome.component';
+import { JobseekerhomeComponent } from './jobseekermodule/jobseekerhome/jobseekerhome.component';
+import { RecruitermoduleModule } from './recruitermodule/recruitermodule.module';
 
 
 
@@ -20,8 +20,7 @@ import { RecruiterhomeComponent } from './recruiterhome/recruiterhome.component'
     AppComponent,
     LandinghomepageComponent,
     RegistrationComponent,
-    JobseekerhomeComponent,
-    RecruiterhomeComponent,
+    JobseekerhomeComponent
 
   ],
   imports: [
@@ -29,7 +28,9 @@ import { RecruiterhomeComponent } from './recruiterhome/recruiterhome.component'
     AppRoutingModule,
     LandingpageModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RecruitermoduleModule,
+    LandingpageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
