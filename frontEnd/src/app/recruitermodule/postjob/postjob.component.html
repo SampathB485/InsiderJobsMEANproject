@@ -1,139 +1,182 @@
-<div class="container mt-4">
-  <div class="card post-job-card p-4">
-    <h3 class="text-center mb-4 text-primary">Post a Job</h3>
-
-    <form [formGroup]="postJobForm" (ngSubmit)="onSubmit()">
-
-      <!-- Job Title -->
-      <div class="mb-3">
-        <label>Job Title *</label>
-        <input type="text" class="form-control" formControlName="title" />
+<div class="job-form-container">
+  <form class="job-form" #jobForm="ngForm" (ngSubmit)="onSubmit()">
+    <!-- Job Title + Job Mode -->
+    <div class="form-row">
+      <div class="form-group">
+        <label>Job Title <span class="required">*</span></label>
+        <input
+          type="text"
+          name="jobTitle"
+          placeholder="Enter job title"
+          [(ngModel)]="jobTitle"
+          required
+        />
       </div>
 
-      <!-- Job Description -->
-      <div class="mb-3">
-        <label>Job Description *</label>
-        <textarea class="form-control" rows="4"
-                  formControlName="description"></textarea>
-      </div>
+      <div class="form-group">
+        <label>Job Mode <span class="required">*</span></label>
+        <div class="radio-group">
+          <label>
+            <input
+              type="radio"
+              name="jobMode"
+              value="Remote"
+              [(ngModel)]="jobMode"
+              required
+            />
+            Remote
+          </label>
 
-      <!-- Experience + Job Mode -->
-      <div class="row mb-3 align-items-end">
-        <!-- Experience (HALF WIDTH) -->
-        <div class="col-md-3">
-          <label>Experience (Years) *</label>
-          <input type="number" min="0" max="55"
-                 class="form-control"
-                 formControlName="experience" />
-        </div>
+          <label>
+            <input
+              type="radio"
+              name="jobMode"
+              value="Hybrid"
+              [(ngModel)]="jobMode"
+            />
+            Hybrid
+          </label>
 
-        <!-- Job Mode -->
-        <div class="col-md-9">
-          <label>Job Mode *</label>
-          <div class="d-flex gap-4 mt-2">
-            <div class="form-check">
-              <input class="form-check-input"
-                     type="radio"
-                     value="Remote"
-                     formControlName="jobMode" />
-              <label class="form-check-label">Remote</label>
-            </div>
-
-            <div class="form-check">
-              <input class="form-check-input"
-                     type="radio"
-                     value="Hybrid"
-                     formControlName="jobMode" />
-              <label class="form-check-label">Hybrid</label>
-            </div>
-
-            <div class="form-check">
-              <input class="form-check-input"
-                     type="radio"
-                     value="Work From Home"
-                     formControlName="jobMode" />
-              <label class="form-check-label">Work From Home</label>
-            </div>
-          </div>
+          <label>
+            <input
+              type="radio"
+              name="jobMode"
+              value="Work from Home"
+              [(ngModel)]="jobMode"
+            />
+            Work from Home
+          </label>
         </div>
       </div>
+    </div>
 
-      <!-- Location -->
-      <div class="mb-3">
-        <label>Location *</label>
+    <!-- Job Description -->
+    <div class="form-group full-width">
+      <label>Job Description <span class="required">*</span></label>
+      <textarea
+        rows="5"
+        name="jobDescription"
+        placeholder="Enter job description"
+        [(ngModel)]="jobDescription"
+        required
+      ></textarea>
+    </div>
 
-        <div class="state-box">
-          <div *ngFor="let state of indianStates">
-            <input type="checkbox"
-                   [checked]="tempSelectedStates.includes(state)"
-                   (change)="toggleTempState(state)" />
-            {{ state }}
-          </div>
-        </div>
-
-        <button type="button"
-                class="btn btn-outline-primary mt-2"
-                (click)="addStates()">
-          Add +
-        </button>
+    <!-- Experience + Salary -->
+    <div class="form-row">
+      <div class="form-group">
+        <label>Experience (Years) <span class="required">*</span></label>
+        <input
+          type="number"
+          name="experience"
+          min="0"
+          [(ngModel)]="experience"
+          placeholder="Enter the experience from 0 to 55 years"
+          required
+        />
       </div>
 
-      <!-- Selected States -->
-      <div class="mb-3">
-        <span class="badge bg-primary me-2 location-chip"
-              *ngFor="let state of selectedStates; let i = index">
-          {{ state }}
-          <span class="remove" (click)="removeState(i)">✖</span>
+      <div class="form-group">
+        <label>Salary Range (₹)</label>
+
+        <div class="double-range">
+          <input
+            type="range"
+            min="1"
+            max="10000000"
+            [(ngModel)]="salaryMin"
+            name="salaryMin"
+            (input)="onMinChange()"
+          />
+
+          <input
+            type="range"
+            min="1"
+            max="10000000"
+            [(ngModel)]="salaryMax"
+            name="salaryMax"
+            (input)="onMaxChange()"
+          />
+
+          <div class="range-track-grey"></div>
+
+          <div
+            class="range-track-blue"
+            [ngStyle]="{
+              left: blueLeft + '%',
+              width: blueWidth + '%'
+            }"
+          ></div>
+        </div>
+
+        <div class="range-hint">
+          ₹ {{ salaryMin | number }} – ₹ {{ salaryMax | number }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="split-section">
+      <div class="left-section">
+        <label>Skills</label>
+        <div class="inline-input">
+          <input
+            type="text"
+            class="wide-input"
+            placeholder="Enter skill"
+            [(ngModel)]="skillInput"
+            name="skillInput"
+          />
+          <button type="button" (click)="addSkill()">Add+</button>
+        </div>
+      </div>
+
+      <div class="right-section">
+        <span
+          class="chip"
+          *ngFor="let skill of skills; let i = index"
+          (click)="removeSkill(i)"
+        >
+          {{ skill }} ✕
         </span>
       </div>
+    </div>
 
-      <!-- Salary + Skills SIDE BY SIDE -->
-      <div class="row mb-3">
-        <!-- Salary -->
-        <div class="col-md-6">
-          <label>Salary Range (₹)</label>
-          <input type="range"
-                 class="form-range"
-                 min="0"
-                 max="100000000"
-                 formControlName="salary" />
-          <small>₹ {{ f['salary'].value | number }}</small>
-        </div>
-
-        <!-- Skills -->
-        <div class="col-md-6">
-          <label>Skills *</label>
-
-          <div class="d-flex gap-2">
-            <input type="text"
-                   class="form-control"
-                   [(ngModel)]="skillInput"
-                   [ngModelOptions]="{standalone:true}" />
-
-            <button type="button"
-                    class="btn btn-outline-primary"
-                    (click)="addSkill()">
-              Add
-            </button>
-          </div>
-
-          <div class="mt-2">
-            <span class="skill-chip"
-                  *ngFor="let skill of skills.controls; let i = index">
-              {{ skill.value }}
-              <span class="remove" (click)="removeSkill(i)">✖</span>
-            </span>
-          </div>
+    <!-- Location -->
+    <div class="split-section">
+      <div class="left-section">
+        <label>Location <span class="required">*</span></label>
+        <div class="inline-input">
+          <select
+            class="wide-input"
+            [(ngModel)]="selectedState"
+            name="selectedState"
+          >
+            <option value="">Select state</option>
+            <option *ngFor="let state of states" [value]="state">
+              {{ state }}
+            </option>
+          </select>
+          <button type="button" (click)="addLocation()">Add+</button>
         </div>
       </div>
 
-      <!-- Submit -->
-      <div class="text-center mt-4">
-        <button type="submit" class="btn btn-primary btn-lg">
-          Post Job
-        </button>
+      <div class="right-section">
+        <span
+          class="chip"
+          *ngFor="let loc of locations; let i = index"
+          (click)="removeLocation(i)"
+        >
+          {{ loc }} ✕
+        </span>
       </div>
+    </div>
 
-    </form>
-  </div>
+    <!-- Submit -->
+    <div class="form-actions">
+      <button type="submit" class="post-job-btn" [disabled]="!isFormValid()">
+        Post Job
+      </button>
+    </div>
+  </form>
 </div>

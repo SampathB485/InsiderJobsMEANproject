@@ -6,8 +6,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
 
+var mongoConnection = require('./config/dbConnection')
+var login = require('./routes/login');
 var jobSeekerRouter = require('./routes/jobSeekerRegistrationRoutes')
-var login = require('./routes/login')
+var postJob = require('./routes/jobPostRoute')
+
 
 var app = express();
 app.use(cors({
@@ -27,8 +30,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+mongoConnection()
 app.use('/register', jobSeekerRouter) //control will go to jobSeekerRegistrationRoutes.
 app.use('/login', login) // login route
+app.use('/postjob', postJob);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

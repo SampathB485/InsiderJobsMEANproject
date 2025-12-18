@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const jobSeekerRegFunctions = require("../CRUDoperations/jobSeekerActualOperations");
-const JobSeekerModel = require("../models/jobSeekerModel");
+// const JobSeekerModel = require("../models/jobSeekerModel");
 
 
 // const dummyJobSeeker = {
@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
     });
   } catch (err) {
     res.status(err.statusCode || 500).json({
-      message: err.message || "Server error",
+      message: err.message || "Server error while creating the user profile",
     });
   }
 });

@@ -1,85 +1,158 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { JobpostingService } from 'src/app/Services/jobposting.service';
+
 
 @Component({
   selector: 'app-postjob',
   templateUrl: './postjob.component.html',
-  styleUrls: ['./postjob.component.css']
+  styleUrls: ['./postjob.component.css'],
 })
-export class PostjobComponent implements OnInit{
-  indianStates: string[] = [
-    'Andhra Pradesh', 'Telangana', 'Tamil Nadu', 'Karnataka',
-    'Kerala', 'Maharashtra', 'Delhi', 'Gujarat',
-    'Rajasthan', 'Uttar Pradesh', 'West Bengal'
-  ];
+export class PostjobComponent {
+  jobTitle = '';
+  jobMode = 'Remote';
+  jobDescription = '';
+  experience: number | null = null;
 
-  tempSelectedStates: string[] = [];
-  selectedStates: string[] = [];
+  salaryMin = 50000;
+  salaryMax = 5000000;
+  blueLeft = 0;
+  blueWidth = 0;
 
   skillInput = '';
+  skills: string[] = [];
 
-  postJobForm = this.fb.group({
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-    experience: [0, Validators.required],
-    jobMode: ['Remote', Validators.required], // DEFAULT SET
-    salary: [0],
-    skills: this.fb.array([])
-  });
+  selectedState = '';
+  locations: string[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  states = [
+    'Andhra Pradesh',
+    'Telangana',
+    'Karnataka',
+    'Tamil Nadu',
+    'Maharashtra',
+    'Kerala',
+    'Delhi',
+    'Gujarat',
+    'West Bengal',
+    'Rajasthan',
+  ];
 
-  ngOnInit(): void {}
-
-  get skills(): FormArray {
-    return this.postJobForm.get('skills') as FormArray;
+  constructor(private jobpostingService: JobpostingService) {
+    this.updateSalaryTrack();
   }
 
-  get f() {
-    return this.postJobForm.controls;
-  }
-
-  toggleTempState(state: string) {
-    if (this.tempSelectedStates.includes(state)) {
-      this.tempSelectedStates =
-        this.tempSelectedStates.filter(s => s !== state);
-    } else {
-      this.tempSelectedStates.push(state);
+  onMinChange() {
+    if (this.salaryMin > this.salaryMax) {
+      this.salaryMin = this.salaryMax;
     }
+    this.updateSalaryTrack();
   }
 
-  addStates() {
-    this.tempSelectedStates.forEach(state => {
-      if (!this.selectedStates.includes(state)) {
-        this.selectedStates.push(state);
-      }
-    });
-    this.tempSelectedStates = [];
+  onMaxChange() {
+    if (this.salaryMax < this.salaryMin) {
+      this.salaryMax = this.salaryMin;
+    }
+    this.updateSalaryTrack();
   }
 
-  removeState(index: number) {
-    this.selectedStates.splice(index, 1);
+  updateSalaryTrack() {
+    const min = 1;
+    const max = 10000000;
+
+    this.blueLeft = ((this.salaryMin - min) / (max - min)) * 100;
+    this.blueWidth = ((this.salaryMax - this.salaryMin) / (max - min)) * 100;
   }
 
   addSkill() {
-    if (this.skillInput.trim()) {
-      this.skills.push(this.fb.control(this.skillInput.trim()));
+    if (
+      this.skillInput.trim() &&
+      !this.skills.includes(this.skillInput.trim())
+    ) {
+      this.skills.push(this.skillInput.trim());
       this.skillInput = '';
     }
   }
 
   removeSkill(index: number) {
-    this.skills.removeAt(index);
+    this.skills.splice(index, 1);
+  }
+
+  addLocation() {
+    if (this.selectedState && !this.locations.includes(this.selectedState)) {
+      this.locations.push(this.selectedState);
+      this.selectedState = '';
+    }
+  }
+
+  removeLocation(index: number) {
+    this.locations.splice(index, 1);
+  }
+
+  isFormValid(): boolean {
+    return (
+      this.jobTitle.trim() !== '' &&
+      this.jobMode !== '' &&
+      this.jobDescription.trim() !== '' &&
+      this.experience !== null &&
+      this.locations.length > 0 &&
+      this.skills.length > 0
+    );
+  }
+  getValidUntilDate(): string {
+    const date = new Date();
+    date.setMonth(date.getMonth() + 1);
+    return date.toISOString();
+  }
+
+  resetForm() {
+    this.jobTitle = '';
+    this.jobMode = 'Remote';
+    this.jobDescription = '';
+    this.experience = null;
+    this.skills = [];
+    this.locations = [];
+    this.salaryMin = 50000;
+    this.salaryMax = 5000000;
+    this.updateSalaryTrack();
   }
 
   onSubmit() {
-    if (this.postJobForm.invalid) return;
+    if (!this.isFormValid()) return;
 
     const payload = {
-      ...this.postJobForm.value,
-      locations: this.selectedStates
+      jobTitle: this.jobTitle,
+      //later here insert the data for the employer
+      jobMode: this.jobMode,
+      jobDescription: this.jobDescription,
+      experience: this.experience,
+      salaryRange: {
+        minimum: this.salaryMin,
+        maximum: this.salaryMax,
+      },
+      skills: this.skills,
+      locations: this.locations,
+      posted: {
+        validUntil: this.getValidUntilDate(),
+      },
     };
+    console.log("THIS IS PAYLOAD DATA   "+ this.getValidUntilDate())
 
-    console.log('Job Payload:', payload);
+    this.jobpostingService.createJob(payload).subscribe({
+      next: (res) => {
+        alert('Job posted successfully!');
+        this.resetForm();
+
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Error posting job');
+      }
+    });
+
+
+    
   }
-}
+
+  }
+

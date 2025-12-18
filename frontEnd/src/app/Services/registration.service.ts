@@ -11,8 +11,7 @@ export class RegistrationService {
   constructor(private http: HttpClient) { }
 
   registerUser(data: any): Observable<any> {
-    console.log("following is the result")
-    const result = this.http.post(this.apiUrl, data); // PROBLEM MIGHT BE HERE
+    const result = this.http.post(this.apiUrl, data);
     console.log(result)
     return result;
     
