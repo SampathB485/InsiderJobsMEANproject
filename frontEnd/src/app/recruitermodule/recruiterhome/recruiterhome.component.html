@@ -1,2 +1,56 @@
-<p>recruiterhome works!</p>
-<router-outlet></router-outlet>
+<!-- ===== Top Navbar ===== -->
+<nav class="navbar navbar-expand-lg shadow-sm sticky-top">
+  <a class="navbar-brand d-flex align-items-center" href="#">
+    <img
+      src="../../../assets/images/job-logo4.jpg"
+      alt="Logo"
+      class="me-2"
+      style="height: 40px"
+    />
+    <span class="fw-bold text-primary">InsiderJobs</span>
+  </a>
+
+  <div class="collapse navbar-collapse justify-content-end">
+    <div class="navbar-nav">
+      <span class="welcome-text">
+        Welcome, <strong>{{ username }}</strong>
+      </span>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Main Layout ===== -->
+<div class="recruiter-container">
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="sidebar">
+
+    <!-- Manage Jobs (placeholder for now) -->
+    <button class="sidebar-btn" routerLink="managejobs"
+      routerLinkActive="active">
+      Manage Jobs
+    </button>
+
+    <!-- ✅ Correct child routing -->
+    <button
+      class="sidebar-btn"
+      routerLink="postjob"
+      routerLinkActive="active"
+    >
+      Post Job
+    </button>
+
+    <!-- View Applicants (placeholder for now) -->
+    <button class="sidebar-btn" routerLink="viewapplicants"
+      routerLinkActive="active">
+      View Applicants
+    </button>
+
+  </aside>
+
+  <!-- ===== Right Content ===== -->
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

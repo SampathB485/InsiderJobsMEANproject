@@ -6,6 +6,8 @@ import { RecruiterhomeComponent } from './recruitermodule/recruiterhome/recruite
 import { JobseekerhomeComponent } from './jobseekermodule/jobseekerhome/jobseekerhome.component';
 import { AuthGuard } from './guards/auth.guard';
 import { PostjobComponent } from './recruitermodule/postjob/postjob.component';
+import { ViewapplicantsComponent } from './recruitermodule/viewapplicants/viewapplicants.component';
+import { ManagejobsComponent } from './recruitermodule/managejobs/managejobs.component';
 
 const routes: Routes = [
 
@@ -13,7 +15,12 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent},
   {path: 'jobseeker/:username', component: JobseekerhomeComponent,  canActivate: [AuthGuard]},
   {path: 'recruiter/:username', component: RecruiterhomeComponent,  canActivate: [AuthGuard],
-    children: [{path:'postjob', component: PostjobComponent}]
+    children: [
+      { path: '', redirectTo: 'managejobs', pathMatch: 'full' },
+      {path:'postjob', component: PostjobComponent},
+      {path:'managejobs', component: ManagejobsComponent},
+      {path:'viewapplicants', component: ViewapplicantsComponent},
+    ]
   }
 
 ];
