@@ -21,12 +21,40 @@
   font-size: 0.85rem;
 }
 
-/* Grey placeholder */
+/* ---------- INPUT BORDER STYLING ---------- */
+
+/* Default input border */
+.form-control {
+  border: 2px solid #ced4da;
+  border-radius: 6px;
+  padding: 10px 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Focused input */
+.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.15rem rgba(13,110,253,0.25);
+}
+
+/* Invalid input (touched) */
+.form-control.ng-invalid.ng-touched {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.15rem rgba(220,53,69,0.25);
+}
+
+/* Valid input (touched) */
+.form-control.ng-valid.ng-touched {
+  border-color: #198754;
+}
+
+/* Placeholder */
 .form-control::placeholder {
-  color: #9e9e9e !important;
+  color: #9e9e9e;
   opacity: 1;
 }
 
+/* Radio buttons */
 .form-check-input[type="radio"] {
   width: 20px;
   height: 20px;

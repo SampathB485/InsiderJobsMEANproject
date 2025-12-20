@@ -109,11 +109,11 @@ const projectSchema = new mongoose.Schema({
 
 const JobSeekerSchema = new mongoose.Schema(
   {
-    userType:{
-      type:String,
-      required:true,
-      enum: ['jobseeker', 'recruiter']
-    },
+    // userType:{
+    //   type:String,
+    //   required:true,
+    //   enum: ['jobseeker', 'recruiter']
+    // },
     
     firstName: {
       type: String,
@@ -137,12 +137,12 @@ const JobSeekerSchema = new mongoose.Schema(
       match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     },
 
-    profilePassword: {
-      type: String,
-      required: true,
-      minlength: 6,
-      match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).{6,}$/
-    },
+    // profilePassword: {
+    //   type: String,
+    //   required: true,
+    //   minlength: 6,
+    //   match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).{6,}$/
+    // },
 
     mobileNo: {
       type: String,

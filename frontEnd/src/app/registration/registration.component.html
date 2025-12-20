@@ -10,12 +10,20 @@
         <label class="form-label">Register As <span class="required">*</span></label><br>
 
         <div class="form-check form-check-inline me-4">
-          <input class="form-check-input" type="radio" value="jobseeker" formControlName="userType">
+          <input
+            class="form-check-input"
+            type="radio"
+            value="jobseeker"
+            formControlName="userType">
           <label class="form-check-label">Jobseeker</label>
         </div>
 
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" value="recruiter" formControlName="userType">
+          <input
+            class="form-check-input"
+            type="radio"
+            value="recruiter"
+            formControlName="userType">
           <label class="form-check-label">Recruiter</label>
         </div>
       </div>
@@ -37,6 +45,22 @@
             Last name is required
           </small>
         </div>
+      </div>
+
+      <!-- Recruiter Only Field -->
+      <div class="mb-3" *ngIf="registerForm.value.userType === 'recruiter'">
+        <label class="form-label">
+          Recruiting For <span class="required">*</span>
+        </label>
+        <input
+          class="form-control"
+          type="text"
+          formControlName="recruitingFor"
+          placeholder="Mention the name of the Employer">
+        <small class="error"
+          *ngIf="f['recruitingFor']?.touched && f['recruitingFor']?.invalid">
+          This field is required
+        </small>
       </div>
 
       <!-- Email -->
@@ -77,5 +101,4 @@
 
     </form>
   </div>
-
 </div>
