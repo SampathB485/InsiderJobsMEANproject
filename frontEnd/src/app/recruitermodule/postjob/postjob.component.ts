@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { JobpostingService } from 'src/app/Services/jobposting.service';
+import { AuthService } from 'src/app/Services/auth.service';
 
 
 @Component({
@@ -38,7 +37,7 @@ export class PostjobComponent {
     'Rajasthan',
   ];
 
-  constructor(private jobpostingService: JobpostingService) {
+  constructor(private authService: AuthService) {
     this.updateSalaryTrack();
   }
 
@@ -138,7 +137,7 @@ export class PostjobComponent {
     };
     console.log("THIS IS PAYLOAD DATA   "+ this.getValidUntilDate())
 
-    this.jobpostingService.createJob(payload).subscribe({
+    this.authService.createJob(payload).subscribe({ //chagne here
       next: (res) => {
         alert('Job posted successfully!');
         this.resetForm();

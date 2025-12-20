@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistrationService } from '../Services/registration.service';
+import { AuthService } from '../Services/auth.service';
+
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +13,7 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private registrationService: RegistrationService
+    private authService: AuthService
   ) {}
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -43,14 +44,12 @@ export class RegistrationComponent implements OnInit {
       mobileNo: this.registerForm.value.mobile,
     };
 
-    this.registrationService.registerUser(payload).subscribe({
+    this.authService.registerUser(payload).subscribe({
       next: (res) => {
         alert('Registration successful!');
         this.registerForm.reset();
       },
       error: (err) => {
-        // console.log("sampathyyyyyyyyy")
-        // console.error("THIS IS THE STATUS CODE====="+err.status);
         if (err.status === 409) {
           alert('Email already registered');
         } else {

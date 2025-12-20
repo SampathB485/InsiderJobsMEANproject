@@ -6,12 +6,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/login';
+  private loginURLapi = 'http://localhost:3000/login';
+  private PostJobURLapi = 'http://localhost:3000/postjob';
+  private RegisterURLapi = 'http://localhost:3000/register';
+
 
   constructor(private http: HttpClient) {}
 
   login(credentials: { email: string; password: string }): Observable<any> {
-    const response = this.http.post(this.apiUrl, credentials);
+    const response = this.http.post(this.loginURLapi, credentials);
     console.log("THIS IS FROM AUTH/LOGIN", response)
     return response
   }
@@ -30,5 +33,24 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+  }
+
+  //This is the function for creating the JOB document
+  createJob(data: any): Observable<any> {
+    console.log("Have you reached here!!!!!!!!!!!!!!!!!!!!!!!11");
+    
+    
+    const result = this.http.post(this.PostJobURLapi, data);
+    // console.log('HTTP Observable:', result);
+    return result;
+  }
+
+
+  //This is the function that is used for creating the User document
+  registerUser(data: any): Observable<any> {
+    const result = this.http.post(this.RegisterURLapi, data);
+    console.log(result)
+    return result;
+    
   }
 }
