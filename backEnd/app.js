@@ -8,7 +8,7 @@ var cors = require('cors')
 
 var mongoConnection = require('./config/dbConnection')
 var login = require('./routes/login');
-var jobSeekerRouter = require('./routes/jobSeekerRegistrationRoutes')
+var jobSeekerRouter = require('./routes/userRegistrationRoutes')
 var postJob = require('./routes/jobPostRoute')
 
 

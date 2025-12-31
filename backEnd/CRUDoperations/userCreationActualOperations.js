@@ -1,4 +1,5 @@
 const JobSeekerModel = require("../models/jobSeekerModel");
+const RecruiterModel = require("../models/RecruiterModel")
 const bcrypt = require("bcryptjs");
 
 const createJobSeeker = async (data) => {
@@ -27,6 +28,27 @@ const createJobSeeker = async (data) => {
   }
 };
 
+const createRecruiter = async (data) => {
+  try {
+    const hashedPassword = await bcrypt.hash(data.profilePassword, 10);
+
+    const recruiter = new RecruiterModel({
+      ...data,
+      profilePassword: hashedPassword,
+    });
+
+    return await recruiter.save();
+
+  } catch (err) {
+    if (err.code === 11000) {
+      const error = new Error('Email already exists');
+      error.statusCode = 409;
+      throw error;
+    }
+    throw err;
+  }
+};
+
 const retrieveJobSeeker = async () => {};
 
 const updateJobSeeker = async () => {};
@@ -34,7 +56,7 @@ const updateJobSeeker = async () => {};
 const deleteJobSeeker = async () => {};
 
 module.exports = {
-  createJobSeeker,
+  createJobSeeker, createRecruiter,
   retrieveJobSeeker,
   updateJobSeeker,
   deleteJobSeeker,
