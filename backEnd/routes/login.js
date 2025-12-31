@@ -17,8 +17,7 @@ router.post("/", async (req, res) => { // this is /login
     if (!user) {
       return res.status(401).json({ message: "Invalid email" });
     }
-
-    console.log("this is from the post thing")
+  
     const isMatch = await bcrypt.compare(password, user.profilePassword);
    
    
@@ -44,6 +43,7 @@ router.post("/", async (req, res) => { // this is /login
     });
 
   } catch (err) {
+    console.log("this is the logged error--------------"+ err);
     res.status(500).json({ message: "Login failed" });
   }
 });
