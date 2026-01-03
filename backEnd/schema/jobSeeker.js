@@ -117,14 +117,14 @@ const JobSeekerSchema = new mongoose.Schema(
     
     firstName: {
       type: String,
-      required: true,
+      required: [true, 'First name is required'],
       trim: true,
       match: /^[A-Za-z]+$/
     },
 
     lastName: {
       type: String,
-      required: true,
+      required: [true, 'Last name is required'],
       trim: true,
       match: /^[A-Za-z]+$/
     },
@@ -136,13 +136,6 @@ const JobSeekerSchema = new mongoose.Schema(
       lowercase: true,
       match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     },
-
-    // profilePassword: {
-    //   type: String,
-    //   required: true,
-    //   minlength: 6,
-    //   match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).{6,}$/
-    // },
 
     mobileNo: {
       type: String,

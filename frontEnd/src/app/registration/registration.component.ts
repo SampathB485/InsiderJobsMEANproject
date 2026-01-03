@@ -67,6 +67,7 @@ export class RegistrationComponent implements OnInit {
       next: () => {
         alert('Registration successful!');
         this.registerForm.reset({ userType: 'jobseeker' });
+     
       },
       error: (err) => {
         if (err.status === 409) {

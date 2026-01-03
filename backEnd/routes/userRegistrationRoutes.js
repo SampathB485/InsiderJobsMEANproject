@@ -3,7 +3,6 @@ const router = express.Router();
 const userCreationActualOperations = require("../CRUDoperations/userCreationActualOperations");
 // const JobSeekerModel = require("../models/jobSeekerModel");
 
-
 // const dummyJobSeeker = {
 //   firstName: "Sampathboss",
 //   lastName: "Bf",
@@ -17,13 +16,12 @@ router.post("/", async (req, res) => {
 
     let result;
 
-    if (userType === 'jobseeker') {
+    if (userType === "jobseeker") {
       result = await userCreationActualOperations.createJobSeeker(req.body);
-    } 
-    else if (userType === 'recruiter') {
-      result = await recruiterRegFunctions.createRecruiter(req.body);
-    } 
-    else {
+    } else if (userType === "recruiter") {
+      
+      result = await userCreationActualOperations.createRecruiter(req.body);
+    } else {
       return res.status(400).json({ message: "Invalid user type" });
     }
 
@@ -31,13 +29,11 @@ router.post("/", async (req, res) => {
       message: "User registered successfully",
       data: result,
     });
-
   } catch (err) {
     res.status(err.statusCode || 500).json({
       message: err.message || "Server error while creating user",
     });
   }
 });
-
 
 module.exports = router;

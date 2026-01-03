@@ -48,8 +48,9 @@ export class AuthService {
 
   //This is the function that is used for creating the User document
   registerUser(data: any): Observable<any> {
+    //this will hit "3000/register" endpoint...   RegisterURLapi = 'http://localhost:3000/register';
     const result = this.http.post(this.RegisterURLapi, data);
-    console.log(result)
+    // console.log(result)
     return result;
     
   }

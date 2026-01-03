@@ -6,29 +6,28 @@ const recruiterSchema = new mongoose.Schema(
       type: String,
       required: [true, 'First name is required'],
       trim: true,
-      match: [/^[A-Za-z]+$/, 'First name must contain only characters']
+      match: /^[A-Za-z]+$/
     },
 
     lastName: {
       type: String,
       required: [true, 'Last name is required'],
       trim: true,
-      match: [/^[A-Za-z]+$/, 'Last name must contain only characters']
+      match: /^[A-Za-z]+$/
     },
 
     email: {
       type: String,
-      required: [true, 'Email is required'],
+      required: true,
       unique: true,
       lowercase: true,
-      trim: true,
-      match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address']
+      match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     },
 
-    mobile: {
+    mobileNo: {
       type: String,
-      required: [true, 'Mobile number is required'],
-      match: [/^\d{10}$/, 'Mobile number must be exactly 10 digits']
+      required: true,
+      match: /^[0-9]{10}$/
     },
 
     recruitingFor: {
