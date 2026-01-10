@@ -1,15 +1,14 @@
-import { Component, EventEmitter, Output, OnInit} from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../Services/auth.service';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-enterlogincred',
   templateUrl: './enterlogincred.component.html',
   styleUrls: ['./enterlogincred.component.css'],
 })
-export class EnterlogincredComponent implements OnInit{
+export class EnterlogincredComponent implements OnInit {
   loginForm!: FormGroup;
 
   @Output() closeLogin = new EventEmitter<void>();
@@ -23,16 +22,16 @@ export class EnterlogincredComponent implements OnInit{
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 
-  // ✅ This is used in HTML as f['email'], f['password']
+  // This is used in HTML as f['email'], f['password']
   get f() {
     return this.loginForm.controls;
   }
 
-  // ✅ This matches (ngSubmit)="onLogin()"
+  //  This matches (ngSubmit)="onLogin()"
   onLogin(): void {
     if (this.loginForm.invalid) {
       return;
@@ -42,22 +41,28 @@ export class EnterlogincredComponent implements OnInit{
 
     this.authService.login(credentials).subscribe({
       next: (res) => {
-        // Save JWT
-        this.authService.saveToken(res.token);
+        try {
+          // Save JWT
+          this.authService.saveToken(res.token);
 
-        // Close modal
-        this.closeLogin.emit();
+          // Close modal
+          this.closeLogin.emit();
+          
 
-        // Redirect based on user type
-        if (res.userType === 'jobseeker') {
-          this.router.navigate(['/jobseeker', res.username]);
-        } else {
-          this.router.navigate(['/recruiter', res.username]);
+          // Redirect based on user type
+          if (res.userType === 'jobseeker') {
+            this.router.navigate(['/jobseeker', res.username]);
+          } else {
+            this.router.navigate(['/recruiter', res.username]);
+          }
+          
+        } catch (err) {
+          console.error('Error during login:', err);
         }
       },
       error: (err) => {
         alert(err.error?.message || 'Login failed');
-      }
+      },
     });
   }
 

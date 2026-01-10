@@ -10,7 +10,7 @@ export class NavbarComponent {
 
   openLogin() {
     this.openLoginEvent.emit();
-    console.log("this is openlogin ")
+    // console.log("this is openlogin ")
   }
 
 }

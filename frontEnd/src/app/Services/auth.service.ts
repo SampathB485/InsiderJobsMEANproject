@@ -13,9 +13,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(credentials: { email: string; password: string }): Observable<any> {
+  login(credentials: { email: string; password: string }): Observable<any> { //change it here
     const response = this.http.post(this.loginURLapi, credentials);
-    console.log("THIS IS FROM AUTH/LOGIN", response)
     return response
   }
 
@@ -36,10 +35,7 @@ export class AuthService {
   }
 
   //This is the function for creating the JOB document
-  createJob(data: any): Observable<any> {
-    console.log("Have you reached here!!!!!!!!!!!!!!!!!!!!!!!11");
-    
-    
+  createJob(data: any): Observable<any> {    
     const result = this.http.post(this.PostJobURLapi, data);
     // console.log('HTTP Observable:', result);
     return result;
