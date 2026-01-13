@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const JobPostFuntions = require('../CRUDoperations/jobActualOperations')
+const JobPostFuntions = require("../CRUDoperations/jobActualOperations");
 // const jobModel = require('../models/jobModel');
 
 // This is used to call the functions from the jobActual operations file
-//here is the proble inside the data result 
+//here is the proble inside the data result
 // const dataresult = {
-//       jobTitle: "ASFD", 
+//       jobTitle: "ASFD",
 //       //later here insert the data for the employer
-//       jobMode: "Remote", 
+//       jobMode: "Remote",
 //       jobDescription: "dfssdf",
 //       experience: 4,
 //       salaryRange: {
@@ -22,20 +22,21 @@ const JobPostFuntions = require('../CRUDoperations/jobActualOperations')
 //       // },
 //     };
 
-
 router.post("/", async (req, res) => {
   try {
-      // console.log("this is request" + req.body);
-      const result = await JobPostFuntions.createJob(req.body);
-      
-      res.status(201).json({
-        message: "Job inserted successfully"
+    // console.log("this is request" + req.body);
+    const data = {
+      ...req.body,
+      recruiter: req.user.userId,
+    };
+    const result = await JobPostFuntions.createJob(data);
 
-      });
-      
-    } catch (err) {
-      res.send(err)
-    }
+    res.status(201).json({
+      message: "Job inserted successfully",
+    });
+  } catch (err) {
+    res.send(err);
+  }
 });
 
 module.exports = router;

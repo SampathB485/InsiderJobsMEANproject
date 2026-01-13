@@ -35,9 +35,15 @@ export class AuthService {
   }
 
   //This is the function for creating the JOB document
-  createJob(data: any): Observable<any> {    
-    const result = this.http.post(this.PostJobURLapi, data);
-    // console.log('HTTP Observable:', result);
+  createJob(data: any): Observable<any> { 
+    //private PostJobURLapi = 'http://localhost:3000/postjob'; 
+    const token = this.getToken();
+    const result = this.http.post(this.PostJobURLapi, data, {
+      headers:{
+        Authorization: `Bearer ${token}`
+      }
+    });
+
     return result;
   }
 

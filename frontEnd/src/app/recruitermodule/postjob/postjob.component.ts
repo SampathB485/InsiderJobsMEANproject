@@ -135,7 +135,7 @@ export class PostjobComponent {
         validUntil: this.getValidUntilDate(),
       },
     };
-    console.log("THIS IS PAYLOAD DATA   "+ this.getValidUntilDate())
+    // console.log("THIS IS PAYLOAD DATA   "+ this.getValidUntilDate())
 
     this.authService.createJob(payload).subscribe({ //chagne here
       next: (res) => {

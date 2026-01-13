@@ -9,6 +9,13 @@ const jobSchema = new mongoose.Schema(
       trim: true,
     },
 
+    /* Recruiter Reference */
+    recruiter: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Recruiters',
+      // required: true,
+    },
+
     /* Job Mode */
     jobMode: {
       type: String,

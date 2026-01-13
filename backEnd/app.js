@@ -10,6 +10,7 @@ var mongoConnection = require('./config/dbConnection')
 var login = require('./routes/login');
 var jobSeekerRouter = require('./routes/userRegistrationRoutes')
 var postJob = require('./routes/jobPostRoute')
+var jwtTokenauth = require('./middleWares/jwtTokenAuth');
 
 
 var app = express();
@@ -33,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 mongoConnection()
 app.use('/register', jobSeekerRouter) //control will go to jobSeekerRegistrationRoutes.
 app.use('/login', login) // login route
-app.use('/postjob', postJob);
+app.use('/postjob',jwtTokenauth, postJob);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
